@@ -1,0 +1,475 @@
+/* ==========================================================================
+   MERIDIAN DESIGN SYSTEM — CONCRETE BRUTALISM v3.0.0
+   Brand: dryrun.ai — Autonomous Financial Mission Control
+   Theme: data-theme="meridian"
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root, [data-theme="pulse"], [data-theme="meridian"] {
+  /* Substrates — the concrete itself */
+  --concrete: #d9d9d7;              /* Primary page substrate — raw light concrete */
+  --concrete-dark: #c9c9c6;         /* Secondary substrate — poured shadow-side concrete */
+  --concrete-deep: #b8b8b5;        /* Deep architectural well */
+  --steel: #111113;                 /* Inverted panels — cast black steel */
+
+  /* Ink & Structure */
+  --ink-hard: #0a0a0b;              /* Primary ink — blue-black India ink */
+  --ink-soft: #3f3f46;              /* Secondary ink — technical pencil gray */
+  --hairline: rgba(10, 10, 11, 0.22); /* Exposed grid lines & structural seams */
+  --hairline-strong: rgba(10, 10, 11, 0.5);
+
+  /* Offset Shadow — hard, zero blur, zero spread softness */
+  --bru-shadow: #0a0a0b;            /* Solid offset shadow — depth as architecture, not light */
+
+  /* Semantic State Colors — safety-signage accents */
+  --recovered: #0a0a0b;             /* Settled/recovered — solid black stamp on white */
+  --recovered-accent: #ffffff;      /* Inverted badge fill */
+  --recovered-mark: #00c853;        /* OK green — the only "green light" in the system */
+
+  --at-risk: #111113;
+  --at-risk-accent: #ffb300;        /* Hazard amber — queued incidents, pending actions */
+
+  --critical: #ffffff;
+  --critical-accent: #ff2e2e;       /* Signal red — outages, fallback paths, aborts */
+
+  --signal: #0a0a0b;
+  --signal-accent: #2e5bff;         /* Blueprint blue — active pulse nodes, primary focus */
+
+  /* Financial Ledgers */
+  --ledger: #0a0a0b;
+  --ledger-muted: #6b6b70;
+
+  /* Radius — none. Brutalism does not round corners. */
+  --radius-pulse: 0px;
+  --radius-pulse-sm: 0px;
+
+  /* Typography Variables */
+  --font-display: 'Archivo Black', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-ui: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace, 'Courier New';
+}
+
+/* ==========================================================================
+   RESET & FOUNDATIONS
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 !important; /* Non-negotiable: zero border-radius */
+}
+
+html {
+  font-size: 16px;
+  background-color: var(--concrete);
+  color: var(--ink-hard);
+  font-family: var(--font-ui);
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--concrete);
+  color: var(--ink-hard);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: var(--ink-hard);
+  color: var(--at-risk-accent);
+}
+
+/* Focus State — Non-negotiable per section 5.2 */
+:focus-visible {
+  outline: 3px solid var(--signal-accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY HIERARCHY (Section 3)
+   ========================================================================== */
+
+/* Hero Numbers & Statements */
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7.5vw, 6rem);
+  line-height: 0.92;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* Section Hero Numbers */
+.text-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+/* Card & Section Headings */
+.text-heading {
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Body & Explanations */
+.text-body {
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  font-weight: 400;
+  max-width: 68ch;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+/* Numbers, Values & Statistics */
+.text-data {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Captions, Subtext, Stamps & Badges */
+.text-micro {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  line-height: 1.3;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+p, .card-description {
+  text-align: left;
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   BRUTALIST ELEVATION & SURFACE ARCHITECTURE (Section 4)
+   ========================================================================== */
+
+/* 4.1 Base Panel */
+.bru-panel {
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* 4.2 Raised / Floating Panel */
+.bru-panel-raised {
+  background: var(--concrete);
+  border: 3px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--bru-shadow);
+}
+
+.bru-panel-raised-lg {
+  background: var(--concrete);
+  border: 3px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: 12px 12px 0 var(--bru-shadow);
+}
+
+/* 4.3 Stamp / Status Tag */
+.bru-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 4px 10px;
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: 3px 3px 0 var(--bru-shadow);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.bru-stamp--inverted {
+  background: var(--ink-hard);
+  color: var(--concrete);
+  box-shadow: 3px 3px 0 var(--signal-accent);
+}
+
+.bru-stamp--success {
+  background: var(--recovered-mark);
+  color: var(--ink-hard);
+  border-color: var(--ink-hard);
+}
+
+.bru-stamp--warning {
+  background: var(--at-risk-accent);
+  color: var(--ink-hard);
+  border-color: var(--ink-hard);
+}
+
+.bru-stamp--critical {
+  background: var(--critical-accent);
+  color: #ffffff;
+  border-color: var(--ink-hard);
+}
+
+.bru-stamp--hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--at-risk-accent) 0 8px,
+    var(--ink-hard) 8px 16px
+  );
+  color: #ffffff;
+  font-weight: 900;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.bru-stamp--rotated {
+  transform: rotate(-2deg);
+}
+
+/* 4.4 Recessed Well */
+.bru-well {
+  background: var(--concrete-dark);
+  border: 2px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px var(--hairline);
+}
+
+/* 4.5 Exposed Structure Utilities */
+.bru-grid-lines {
+  background-image:
+    linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bru-seam-top {
+  border-top: 2px solid var(--ink-hard);
+}
+
+.bru-seam-bottom {
+  border-bottom: 2px solid var(--ink-hard);
+}
+
+.bru-seam-right {
+  border-right: 2px solid var(--ink-hard);
+}
+
+.bru-seam-left {
+  border-left: 2px solid var(--ink-hard);
+}
+
+.bru-index::before {
+  content: attr(data-index);
+  font-family: var(--font-mono);
+  color: var(--ink-soft);
+  margin-right: 0.75rem;
+  font-weight: 700;
+}
+
+/* Cast Steel Inverted Slab */
+.bru-steel {
+  background: var(--steel);
+  color: var(--concrete);
+  border: 2px solid var(--ink-hard);
+}
+
+/* ==========================================================================
+   INTERACTION & MOTION SYSTEM (Section 5)
+   ========================================================================== */
+
+/* 5.1 Card Interaction */
+.card-hover {
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.15s cubic-bezier(0.2, 0, 0, 1);
+  will-change: transform, box-shadow;
+  position: relative;
+}
+
+.card-hover:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 10px 10px 0 var(--bru-shadow);
+  z-index: 10;
+}
+
+.card-hover:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--bru-shadow);
+}
+
+/* 5.2 Button Hierarchy */
+
+/* Secondary Brut Button */
+.bru-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--bru-shadow);
+  color: var(--ink-hard);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.12s cubic-bezier(0.2, 0, 0, 1);
+  user-select: none;
+}
+
+.bru-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--bru-shadow);
+  background: #ebebeb;
+}
+
+.bru-button:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--bru-shadow);
+}
+
+/* Primary Accent Action Button */
+.bru-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--ink-hard);
+  color: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--signal-accent);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1),
+              box-shadow 0.12s cubic-bezier(0.2, 0, 0, 1),
+              background 0.12s ease;
+  user-select: none;
+}
+
+.bru-button-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--signal-accent);
+  background: #1c1c20;
+}
+
+.bru-button-primary:active {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 var(--signal-accent);
+}
+
+/* Danger / Rollback Button */
+.bru-button-danger {
+  background: var(--critical-accent);
+  color: #ffffff;
+  border: 2px solid var(--ink-hard);
+  box-shadow: 5px 5px 0 var(--ink-hard);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+}
+
+.bru-button-danger:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--ink-hard);
+}
+
+/* Small Button Variant */
+.bru-button-sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
+  box-shadow: 3px 3px 0 var(--bru-shadow);
+}
+
+.bru-button-sm:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--bru-shadow);
+}
+
+/* 5.3 Keyframe Animations */
+
+/* Recovery Stamp Slam */
+@keyframes recoveryStamp {
+  0%   { transform: translateY(-24px) rotate(0deg) scale(1.3); opacity: 0; }
+  60%  { transform: translateY(2px)  rotate(-2deg) scale(0.98); opacity: 1; }
+  80%  { transform: translateY(-1px) rotate(-1deg) scale(1.01); }
+  100% { transform: translateY(0)    rotate(-2deg) scale(1); }
+}
+
+.anim-recovery-stamp {
+  animation: recoveryStamp 0.35s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+/* Rollback Flinch */
+@keyframes rollbackFlinch {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.anim-rollback-flinch {
+  animation: rollbackFlinch 0.35s steps(4) forwards;
+}
+
+/* Critical Alert Blink */
+@keyframes criticalBlink {
+  0%, 49%  { background-color: var(--critical-accent); color: var(--ink-hard); }
+  50%, 100%{ background-color: var(--ink-hard);        color: var(--critical-accent); }
+}
+
+.anim-critical-blink {
+  animation: criticalBlink 0.6s steps(1) infinite;
+}
+
+/* Blinking Monospace Cursor */
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.anim-cursor {
+  display: inline-block;
+  font-family: var(--font-mono);
+  animation: cursorBlink 0.8s steps(1) infinite;
+  color: var(--signal-accent);
+}
+
+/* Ticker Marquee */
+@keyframes tickerMove {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}

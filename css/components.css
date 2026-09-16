@@ -1,0 +1,929 @@
+/* ==========================================================================
+   MERIDIAN BRUTALIST COMPONENTS — dryrun.ai
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SYSTEM MASTHEAD & TICKERS
+   -------------------------------------------------------------------------- */
+.masthead-bar {
+  background: var(--steel);
+  color: var(--concrete);
+  border-bottom: 2px solid var(--ink-hard);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 6px 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.masthead-status-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.masthead-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.04em;
+}
+
+.masthead-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--recovered-mark);
+  display: inline-block;
+}
+
+.masthead-dot--active {
+  background: var(--recovered-mark);
+  box-shadow: 0 0 0 1px #000;
+}
+
+.masthead-dot--signal {
+  background: var(--signal-accent);
+}
+
+.masthead-dot--amber {
+  background: var(--at-risk-accent);
+}
+
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Secondary Navigation Bar */
+.site-nav {
+  background: var(--concrete);
+  border-bottom: 3px solid var(--ink-hard);
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+  z-index: 900;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--ink-hard);
+}
+
+.site-logo-brand {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink-hard);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  padding: 4px 8px;
+  position: relative;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.nav-link:hover {
+  background: var(--ink-hard);
+  color: var(--concrete);
+}
+
+/* Industrial Ticker Marquee */
+.ticker-band {
+  background: var(--concrete-dark);
+  border-bottom: 2px solid var(--ink-hard);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 7px 0;
+  display: flex;
+  user-select: none;
+}
+
+.ticker-track {
+  display: inline-flex;
+  animation: tickerMove 36s linear infinite;
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink-hard);
+  padding: 0 2rem;
+  letter-spacing: 0.05em;
+}
+
+.ticker-sep {
+  color: var(--at-risk-accent);
+  font-weight: 900;
+}
+
+/* --------------------------------------------------------------------------
+   2. HERO SECTION & KPI METRICS
+   -------------------------------------------------------------------------- */
+.hero-section {
+  padding: 4rem 1.5rem 3.5rem;
+  border-bottom: 3px solid var(--ink-hard);
+  position: relative;
+  background-color: var(--concrete);
+}
+
+.hero-grid {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+
+.hero-tagline-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.hero-title {
+  color: var(--ink-hard);
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  font-weight: 500;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Hero Status Monitor Box */
+.hero-telemetry-box {
+  background: var(--concrete-dark);
+  border: 3px solid var(--ink-hard);
+  box-shadow: 10px 10px 0 var(--bru-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-header {
+  background: var(--steel);
+  color: var(--concrete);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink-hard);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.telemetry-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.telemetry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0.75rem;
+  background: var(--concrete);
+  border: 1px solid var(--ink-hard);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.telemetry-label {
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+
+.telemetry-val {
+  font-weight: 700;
+  color: var(--ink-hard);
+}
+
+/* Monumental KPI Strip */
+.kpi-strip {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 3px solid var(--ink-hard);
+  border-bottom: 3px solid var(--ink-hard);
+  background: var(--concrete);
+}
+
+.kpi-block {
+  padding: 2rem 1.5rem;
+  border-right: 2px solid var(--ink-hard);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.kpi-block:last-child {
+  border-right: none;
+}
+
+.kpi-val {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 3.5vw, 3.25rem);
+  line-height: 0.95;
+  color: var(--ink-hard);
+  letter-spacing: -0.03em;
+}
+
+.kpi-label {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-hard);
+}
+
+.kpi-sub {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   3. SECTION WRAPPERS & EXPOSED GRID STRUCTURE
+   -------------------------------------------------------------------------- */
+.section-slab {
+  padding: 4.5rem 1.5rem;
+  border-bottom: 3px solid var(--ink-hard);
+  position: relative;
+}
+
+.section-container {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.section-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--ink-hard);
+}
+
+.section-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. SIGNATURE COMPONENT: FLOW MATRIX (Canvas Circuit)
+   -------------------------------------------------------------------------- */
+.flow-matrix-container {
+  background: var(--steel);
+  border: 3px solid var(--ink-hard);
+  box-shadow: 10px 10px 0 var(--bru-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-matrix-hud {
+  padding: 0.85rem 1.25rem;
+  background: #18181c;
+  border-bottom: 2px solid var(--ink-hard);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--concrete);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.flow-matrix-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#flowMatrixCanvas {
+  display: block;
+  width: 100%;
+  height: 440px;
+  background-color: #0c0c0e;
+}
+
+.flow-matrix-legend {
+  padding: 0.75rem 1.25rem;
+  background: var(--steel);
+  border-top: 2px solid var(--ink-hard);
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--concrete);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legend-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border: 1px solid #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. SIGNATURE COMPONENT: INTERACTIVE DRY-RUN MISSION CONTROL CONSOLE
+   -------------------------------------------------------------------------- */
+.console-wrapper {
+  background: var(--concrete);
+  border: 3px solid var(--ink-hard);
+  box-shadow: 12px 12px 0 var(--bru-shadow);
+  position: relative;
+}
+
+.console-header-bar {
+  background: var(--steel);
+  color: var(--concrete);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 2px solid var(--ink-hard);
+}
+
+.scenario-selector-bar {
+  background: var(--concrete-dark);
+  padding: 0.75rem 1.25rem;
+  border-bottom: 2px solid var(--ink-hard);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.scenario-label {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.scenario-btn {
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--bru-shadow);
+  transition: all 0.1s ease;
+}
+
+.scenario-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--bru-shadow);
+}
+
+.scenario-btn.active {
+  background: var(--ink-hard);
+  color: var(--concrete);
+  box-shadow: 3px 3px 0 var(--signal-accent);
+}
+
+/* Workflow Stage Progress Pipeline */
+.pipeline-stages {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 2px solid var(--ink-hard);
+  background: var(--concrete);
+}
+
+.pipeline-stage {
+  padding: 1rem 0.75rem;
+  border-right: 2px solid var(--ink-hard);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  background: var(--concrete);
+  transition: background 0.15s ease;
+}
+
+.pipeline-stage:last-child {
+  border-right: none;
+}
+
+.pipeline-stage.stage-active {
+  background: #f4f4f2;
+}
+
+.pipeline-stage.stage-passed {
+  background: var(--concrete-dark);
+}
+
+.pipeline-stage-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+.pipeline-stage-name {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+}
+
+.pipeline-stage-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Main Console Grid */
+.console-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+
+.console-pane-left {
+  padding: 1.5rem;
+  border-right: 2px solid var(--ink-hard);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--concrete);
+}
+
+.console-pane-right {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: var(--concrete-dark);
+}
+
+/* Payout Event Data Card */
+.payload-well {
+  background: #0d0d0f;
+  color: #e5e5e5;
+  border: 2px solid var(--ink-hard);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  padding: 1rem;
+  overflow-x: auto;
+  max-height: 240px;
+  position: relative;
+}
+
+.payload-tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--ink-hard);
+  background: var(--concrete-dark);
+}
+
+.payload-tab {
+  background: var(--concrete-dark);
+  border: none;
+  border-right: 2px solid var(--ink-hard);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.payload-tab.active {
+  background: #0d0d0f;
+  color: #ffffff;
+}
+
+/* Diff Panel (Pre vs Post vs Intended) */
+.diff-box {
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.diff-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px dashed var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.diff-row:last-child {
+  border-bottom: none;
+}
+
+.diff-key {
+  color: var(--ink-soft);
+}
+
+.diff-val-intended {
+  color: var(--ink-hard);
+  font-weight: 600;
+}
+
+.diff-val-altered {
+  color: var(--critical-accent);
+  font-weight: 700;
+  text-decoration: line-through;
+}
+
+.diff-val-safe {
+  color: var(--recovered-mark);
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   6. SIGNATURE COMPONENT: SEGMENTED CONFIDENCE & AUTONOMY GAUGE
+   -------------------------------------------------------------------------- */
+.confidence-gauge-card {
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.confidence-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confidence-segments-wrap {
+  position: relative;
+  padding-top: 1.5rem;
+}
+
+.confidence-threshold-marker {
+  position: absolute;
+  top: 0;
+  left: 70%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--signal-accent);
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confidence-threshold-line {
+  position: absolute;
+  top: 18px;
+  bottom: 0;
+  left: 70%;
+  width: 2px;
+  background: var(--ink-hard);
+  z-index: 5;
+}
+
+.confidence-segments {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 3px;
+  background: var(--ink-hard);
+  padding: 3px;
+  border: 2px solid var(--ink-hard);
+}
+
+.confidence-cell {
+  height: 24px;
+  background: var(--concrete-dark);
+  transition: background 0.2s steps(2);
+}
+
+.confidence-cell.filled-amber {
+  background: var(--at-risk-accent);
+}
+
+.confidence-cell.filled-blue {
+  background: var(--signal-accent);
+}
+
+.confidence-cell.filled-green {
+  background: var(--recovered-mark);
+}
+
+.confidence-cell.filled-red {
+  background: var(--critical-accent);
+}
+
+.confidence-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* Console Action Buttons Bar */
+.console-actions-bar {
+  padding: 1.25rem 1.5rem;
+  background: var(--concrete);
+  border-top: 2px solid var(--ink-hard);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. SIGNATURE COMPONENT: IMMUTABLE TERMINAL AUDIT LEDGER (AuditTrail)
+   -------------------------------------------------------------------------- */
+.audit-container {
+  background: var(--steel);
+  border: 3px solid var(--ink-hard);
+  box-shadow: 10px 10px 0 var(--bru-shadow);
+}
+
+.audit-header {
+  background: var(--steel);
+  color: var(--concrete);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink-hard);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.audit-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.audit-filter-btn {
+  background: transparent;
+  color: var(--concrete);
+  border: 1px solid var(--hairline-strong);
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.audit-filter-btn.active {
+  background: var(--concrete);
+  color: var(--ink-hard);
+  font-weight: 700;
+}
+
+.audit-body {
+  background: var(--concrete-dark);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  max-height: 380px;
+  overflow-y: auto;
+  border-bottom: 2px solid var(--ink-hard);
+}
+
+.audit-row {
+  display: grid;
+  grid-template-columns: 80px 100px 130px 1fr 140px 120px;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.65rem 1.25rem;
+  border-bottom: 1px solid var(--hairline);
+  color: var(--ink-hard);
+}
+
+.audit-row:nth-child(even) {
+  background: var(--concrete);
+}
+
+.audit-row:hover {
+  background: #ecece9;
+}
+
+.audit-index {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+.audit-hash {
+  color: var(--signal-accent);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.audit-footer-bar {
+  background: var(--steel);
+  color: var(--concrete);
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --------------------------------------------------------------------------
+   8. ARCHITECTURAL PIPELINE & COMPARISON
+   -------------------------------------------------------------------------- */
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.arch-card {
+  background: var(--concrete);
+  border: 2px solid var(--ink-hard);
+  box-shadow: 6px 6px 0 var(--bru-shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.arch-step-num {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+/* Comparison Matrix Table */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid var(--ink-hard);
+  background: var(--concrete);
+  font-family: var(--font-ui);
+}
+
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid var(--ink-hard);
+  padding: 1rem 1.25rem;
+  text-align: left;
+}
+
+.comparison-table th {
+  background: var(--steel);
+  color: var(--concrete);
+  font-family: var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+
+.comparison-table tr:nth-child(even) td {
+  background: var(--concrete-dark);
+}
+
+/* --------------------------------------------------------------------------
+   9. HACKATHON DOSSIER / CANDOR REPORT
+   -------------------------------------------------------------------------- */
+.dossier-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.dossier-card {
+  background: var(--concrete);
+  border: 3px solid var(--ink-hard);
+  box-shadow: 8px 8px 0 var(--bru-shadow);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.candor-banner {
+  background: var(--concrete-dark);
+  border-left: 6px solid var(--at-risk-accent);
+  padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--ink-hard);
+}
+
+/* --------------------------------------------------------------------------
+   10. FOOTER SLAB
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--steel);
+  color: var(--concrete);
+  border-top: 4px solid var(--ink-hard);
+  padding: 3.5rem 1.5rem 2.5rem;
+}
+
+.footer-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+}
+
+.footer-bottom {
+  max-width: 1320px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hairline-strong);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--concrete-dark);
+}
