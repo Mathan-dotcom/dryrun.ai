@@ -21,11 +21,11 @@ class AuditTrail {
       {
         index: '#0418',
         stamp: 'OK',
-        timestamp: '14:22:04.108',
-        taskId: 'DD-8402',
-        summary: 'KeeperHub MCP dry_run cleared: 35.00 USDC -> 0x9b3...4e1',
-        txHash: '0x3a9f...c801',
-        fullTx: '0x3a9f7e1b54a8029cde8751bfa0092187b5a83701290382a17cb019ef43c8012b',
+        timestamp: '12:06:17.000',
+        taskId: 'DD-8842',
+        summary: 'KeeperHub verified payout: 0.0001 ETH -> 0xdb9b...7db3 (Block 46885954)',
+        txHash: '0x3f06...0296',
+        fullTx: 'https://sepolia.basescan.org/tx/0x3f069068e7b5a7e851a1facf6f34676d2dc6cced3326d9ef3ca8964f3b640296',
         chain: 'BASE-SEPOLIA'
       },
       {

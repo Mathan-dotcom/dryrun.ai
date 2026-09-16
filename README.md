@@ -68,8 +68,18 @@ Open `http://localhost:3000` in your browser.
 | **FR-2** | Translate payout into KeeperHub MCP workflow | Implemented with live `keeperhub/compose_workflow` inspector |
 | **FR-3** | Execute off-chain dry-run with preview | Implemented with off-chain state diff and gas/balance check |
 | **FR-4** | Deterministic execution without re-inference | Implemented with locked workflow dispatch |
-| **FR-5** | Real on-chain transaction hash proof | Displayed with block explorer link & hash verification |
+| **FR-5** | Real on-chain transaction hash proof | Verified on Base Sepolia (`0x3f069068e7b5a7e851a1facf6f34676d2dc6cced3326d9ef3ca8964f3b640296`) |
 | **FR-6** | KeeperHub immutable audit trail logging | Implemented in Monospace Terminal Audit Ledger |
 | **FR-7** | Demonstrate caught bad payment in dry-run | Implemented via Scenario B (100x overpay + sink drift) |
 | **FR-8** | Interactive UI for preview → approve → execute | Implemented via 5-step interactive Mission Control |
 | **FR-9** | Documented KeeperHub surfaces used | Documented in Hackathon Dossier section |
+
+---
+
+## 5. Verifiable On-Chain Proof (FR-5)
+- **Transaction Hash:** [`0x3f069068e7b5a7e851a1facf6f34676d2dc6cced3326d9ef3ca8964f3b640296`](https://sepolia.basescan.org/tx/0x3f069068e7b5a7e851a1facf6f34676d2dc6cced3326d9ef3ca8964f3b640296)
+- **Block Number:** `46,885,954`
+- **Network:** Base Sepolia (Chain ID `84532`)
+- **Signer Address:** `0xa9c97E3D0f95be9Fc990B3686997eC346D96833e`
+- **Verification Status:** Confirmed On-Chain with Zero Mock Data
+

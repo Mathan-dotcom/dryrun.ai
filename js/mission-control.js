@@ -41,7 +41,7 @@ class MissionControl {
         nonce: 1,
         confidence: 0.985,
         policyVerdict: 'SAFE_CONFORMANCE',
-        txHash: 'AWAITING_METAMASK_BROADCAST'
+        txHash: '0x3f069068e7b5a7e851a1facf6f34676d2dc6cced3326d9ef3ca8964f3b640296'
       },
       malicious: {
         id: 'DD-8843',
