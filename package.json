@@ -4,7 +4,6 @@
   "description": "dryrun.ai — KeeperHub × Daydreams Safe Payment Execution Layer for the Open Agentic Commerce Marketplace",
   "main": "server.js",
   "scripts": {
-    "build": "echo 'Static build ready'",
     "start": "node server.js",
     "dev": "node server.js"
   },
