@@ -327,8 +327,7 @@ class MissionControl {
           params: [{
             from: fromAddr,
             to: this.userWalletAddress,
-            value: '0x5AF3107A4000', // 0.0001 ETH
-            data: '0x64727972756e2e6169' // "dryrun.ai" in hex
+            value: '0x5AF3107A4000' // 0.0001 ETH
           }]
         });
 
@@ -420,8 +419,7 @@ class MissionControl {
         params: [{
           from: fromAddr,
           to: this.userWalletAddress,
-          value: '0x5AF3107A4000', // 0.0001 ETH
-          data: '0x64727972756e2e6169' // "dryrun.ai"
+          value: '0x5AF3107A4000' // 0.0001 ETH (no data field for EOA-to-EOA)
         }]
       });
 
