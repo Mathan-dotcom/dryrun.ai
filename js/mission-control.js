@@ -98,12 +98,16 @@ class MissionControl {
     const btnExecute = document.getElementById('btnExecuteWorkflow');
     const btnInject = document.getElementById('btnInjectAttack');
     const btnPaste = document.getElementById('btnPasteTxHash');
+    const btnMetaMask = document.getElementById('btnMetaMaskDirect');
 
     if (btnDryRun) {
       btnDryRun.addEventListener('click', () => this.runDryRun());
     }
     if (btnExecute) {
       btnExecute.addEventListener('click', () => this.executeWorkflow());
+    }
+    if (btnMetaMask) {
+      btnMetaMask.addEventListener('click', () => this.sendMetaMaskTx());
     }
     if (btnInject) {
       btnInject.addEventListener('click', () => {
@@ -395,6 +399,38 @@ class MissionControl {
 
     this.state = 'executed';
     this.renderPayload();
+  }
+
+  async sendMetaMaskTx() {
+    if (!window.ethereum) {
+      alert('MetaMask is not detected in your browser window. Please ensure your MetaMask extension is enabled and unlocked.');
+      return;
+    }
+    try {
+      if (window.brutalAudio) window.brutalAudio.stampThud();
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      if (!accounts || accounts.length === 0) {
+        alert('Please connect an account in MetaMask.');
+        return;
+      }
+      const fromAddr = accounts[0];
+
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [{
+          from: fromAddr,
+          to: this.userWalletAddress,
+          value: '0x5AF3107A4000', // 0.0001 ETH
+          data: '0x64727972756e2e6169' // "dryrun.ai"
+        }]
+      });
+
+      console.log('[dryrun.ai] Direct MetaMask Tx Broadcast:', txHash);
+      this.applyRealTxHash(txHash);
+    } catch (err) {
+      console.error('[dryrun.ai] MetaMask Error:', err);
+      alert('MetaMask Notice: ' + (err.message || err));
+    }
   }
 
   applyRealTxHash(onChainTxHash) {
