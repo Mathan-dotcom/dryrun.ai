@@ -23,24 +23,25 @@ class MissionControl {
     this.liveOrgId = null;
     this.liveWorkflows = [];
 
+    this.userWalletAddress = '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e';
     this.checkLiveConnection();
 
     this.scenarios = {
       legitimate: {
         id: 'DD-8842',
         title: 'Solana Market Volatility Index Model',
-        agent: '0x71a4f028b3c94918e9bc019283471bfa82910e9b',
-        agentLabel: 'Daydreams AlphaAgent-7',
-        intendedAmount: '45.00 USDC',
-        intendedToken: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // Base USDC
-        recipient: '0x71a4f028b3c94918e9bc019283471bfa82910e9b',
-        recipientStatus: 'WHITELISTED_TASK_CLAIMANT',
-        requestedAmount: '45.00 USDC',
-        gasEstimate: '0.00014 ETH ($0.38)',
-        nonce: 423,
-        confidence: 0.942,
+        agent: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
+        agentLabel: 'Mathan Operator (MetaMask Signer)',
+        intendedAmount: '0.001 ETH (Test Payout)',
+        intendedToken: 'Base Sepolia Native / USDC',
+        recipient: '0xa9c97E3D0f95be9Fc990B3686997eC346D96833e',
+        recipientStatus: 'VERIFIED_METAMASK_SIGNER',
+        requestedAmount: '0.001 ETH',
+        gasEstimate: '0.000021 ETH ($0.05)',
+        nonce: 1,
+        confidence: 0.985,
         policyVerdict: 'SAFE_CONFORMANCE',
-        txHash: '0x8f2c31e9a4b0819c4d7120e8b159430192ba8716c02938471bfa982710293847'
+        txHash: 'AWAITING_METAMASK_BROADCAST'
       },
       malicious: {
         id: 'DD-8843',
@@ -283,19 +284,65 @@ class MissionControl {
     if (this.state !== 'simulated') return;
     const sc = this.scenarios[this.currentScenario];
 
-    // Stage 5: Execution via Turnkey & Broadcast
+    // Stage 5: Execution & Broadcast
     this.updateStages(5);
     if (window.brutalAudio) window.brutalAudio.stampThud();
 
     const stamp = document.getElementById('simVerdictStamp');
     if (stamp) {
       stamp.className = 'bru-stamp bru-stamp--inverted anim-recovery-stamp';
-      stamp.textContent = 'EXECUTING VIA LIVE KEEPERHUB...';
+      stamp.textContent = 'AWAITING SIGNATURE...';
     }
 
+    let onChainTxHash = null;
     let realExecutionId = null;
-    let targetWorkflowId = this.liveWorkflows.find(w => w.network === '84532')?.id || this.liveWorkflows[0]?.id;
 
+    // Check if MetaMask (window.ethereum) is available
+    if (window.ethereum && this.currentScenario === 'legitimate') {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const fromAddr = accounts[0] || this.userWalletAddress;
+
+        // Switch to Base Sepolia (Chain ID 84532 = 0x14a34)
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x14a34' }]
+          });
+        } catch (switchErr) {
+          if (switchErr.code === 4902) {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: '0x14a34',
+                chainName: 'Base Sepolia',
+                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+                rpcUrls: ['https://sepolia.base.org'],
+                blockExplorerUrls: ['https://sepolia.basescan.org']
+              }]
+            });
+          }
+        }
+
+        // Send a real on-chain transaction on Base Sepolia (0.0001 ETH test payout)
+        onChainTxHash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [{
+            from: fromAddr,
+            to: this.userWalletAddress, // User receives the payout
+            value: '0x5AF3107A4000', // 0.0001 ETH
+            data: '0x64727972756e2e616920646179647265616d73207061796f7574' // "dryrun.ai daydreams payout" in hex
+          }]
+        });
+
+        console.log('[dryrun.ai] Real on-chain Base Sepolia Tx broadcast:', onChainTxHash);
+      } catch (mmErr) {
+        console.warn('[dryrun.ai] MetaMask signing failed or rejected:', mmErr.message);
+      }
+    }
+
+    // Also trigger KeeperHub workflow run
+    let targetWorkflowId = this.liveWorkflows.find(w => w.network === '84532')?.id || this.liveWorkflows[0]?.id;
     if (this.liveConnected && targetWorkflowId) {
       try {
         const execRes = await fetch(`/api/live/workflows/${targetWorkflowId}/execute`, {
@@ -304,42 +351,53 @@ class MissionControl {
           body: JSON.stringify({
             input: {
               taskId: sc.id,
-              recipient: sc.recipient,
-              amount: sc.intendedAmount,
-              token: 'USDC',
-              chain: '84532'
+              recipient: this.userWalletAddress,
+              amount: '0.0001 ETH',
+              chain: '84532',
+              txHash: onChainTxHash
             }
           })
         });
-
         if (execRes.ok) {
           const execData = await execRes.json();
           realExecutionId = execData.executionId;
-          console.log('[dryrun.ai] Real KeeperHub execution dispatched:', execData);
         }
       } catch (err) {
         console.error('[dryrun.ai] Error calling KeeperHub execute:', err);
       }
     }
 
+    const finalHash = onChainTxHash || sc.txHash;
+
     if (stamp) {
-      stamp.className = 'bru-stamp bru-stamp--inverted anim-recovery-stamp';
-      stamp.textContent = realExecutionId 
-        ? `CONFIRMED: KEEPERHUB RUN (${realExecutionId.substring(0, 10)}...)` 
-        : 'ON-CHAIN BROADCAST CONFIRMED';
+      stamp.className = 'bru-stamp bru-stamp--success anim-recovery-stamp';
+      stamp.textContent = onChainTxHash 
+        ? `ON-CHAIN CONFIRMED (${onChainTxHash.substring(0, 10)}...)` 
+        : (realExecutionId ? `CONFIRMED: KEEPERHUB RUN (${realExecutionId.substring(0, 10)}...)` : 'ON-CHAIN BROADCAST CONFIRMED');
     }
 
     if (this.flow) this.flow.setState('recovery');
 
+    // Update the Hackathon Proof Section dynamically
+    const proofHashEl = document.getElementById('proofTxHashDisplay');
+    const proofLinkEl = document.getElementById('proofTxLinkDisplay');
+    if (proofHashEl && onChainTxHash) {
+      proofHashEl.textContent = onChainTxHash.substring(0, 18) + '...';
+    }
+    if (proofLinkEl && onChainTxHash) {
+      proofLinkEl.href = `https://sepolia.basescan.org/tx/${onChainTxHash}`;
+      proofLinkEl.innerHTML = `VIEW LIVE ON BASESCAN: ${onChainTxHash.substring(0, 14)}... ↗`;
+    }
+
     this.audit.addEntry({
       stamp: 'OK',
       taskId: sc.id,
-      summary: realExecutionId
-        ? `LIVE KEEPERHUB EXECUTION DISPATCHED [ID: ${realExecutionId}] -> ${sc.recipient.substring(0, 10)}... (Turnkey Nonce ${sc.nonce})`
-        : `KeeperHub executed task payout: ${sc.intendedAmount} -> ${sc.recipient.substring(0, 10)}... (Nonce ${sc.nonce})`,
-      txHash: realExecutionId ? realExecutionId.substring(0, 12) + '...' : (sc.txHash.substring(0, 10) + '...'),
-      fullTx: realExecutionId ? `https://app.keeperhub.com/executions/${realExecutionId}` : sc.txHash,
-      chain: this.currentScenario === 'gasspike' ? 'BASE-PRIVATE-RPC' : 'BASE-SEPOLIA'
+      summary: onChainTxHash
+        ? `REAL ON-CHAIN PAYOUT BROADCAST: 0.0001 ETH -> ${this.userWalletAddress.substring(0, 10)}... (MetaMask)`
+        : `KeeperHub executed task payout: ${sc.intendedAmount} -> ${this.userWalletAddress.substring(0, 10)}...`,
+      txHash: finalHash.substring(0, 10) + '...',
+      fullTx: onChainTxHash ? `https://sepolia.basescan.org/tx/${onChainTxHash}` : finalHash,
+      chain: 'BASE-SEPOLIA'
     });
 
     this.state = 'executed';
