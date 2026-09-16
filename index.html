@@ -16,8 +16,9 @@
   <link rel="stylesheet" href="css/styleguide.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsive.css">
-</head>
 <body class="bru-grid-lines">
+  <!-- Fullscreen Live Kinetic Brutalist Wallpaper -->
+  <canvas id="bgLiveWallpaper"></canvas>
 
   <!-- ========================================================================
        1. TOP SYSTEM MASTHEAD & TICKER (Cast Steel)
@@ -44,6 +45,9 @@
     <div class="masthead-actions">
       <span class="bru-stamp bru-stamp--inverted" id="keeperHubOrgBadge" style="font-size: 0.6875rem;">LIVE ORG DETECTING...</span>
       <span class="bru-stamp bru-stamp--inverted" style="font-size: 0.6875rem;">DORAHACKS 2026</span>
+      <button class="bru-button bru-button-sm" id="wallpaperToggleBtn" style="background: var(--steel); color: var(--signal-accent); border-color: var(--hairline-strong);">
+        WALLPAPER: [ACTIVE]
+      </button>
       <button class="bru-button bru-button-sm" id="soundToggleBtn" style="background: var(--steel); color: var(--concrete); border-color: var(--hairline-strong);">
         AUDIO: [ENGAGED]
       </button>
@@ -685,6 +689,7 @@
 
   <!-- Scripts -->
   <script src="js/sound-effects.js"></script>
+  <script src="js/live-wallpaper.js"></script>
   <script src="js/flow-matrix.js"></script>
   <script src="js/confidence-gate.js"></script>
   <script src="js/audit-trail.js"></script>

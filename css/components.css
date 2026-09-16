@@ -157,7 +157,7 @@
   padding: 4rem 1.5rem 3.5rem;
   border-bottom: 3px solid var(--ink-hard);
   position: relative;
-  background-color: var(--concrete);
+  background-color: rgba(217, 217, 215, 0.88);
 }
 
 .hero-grid {
@@ -260,7 +260,7 @@
   grid-template-columns: repeat(4, 1fr);
   border-top: 3px solid var(--ink-hard);
   border-bottom: 3px solid var(--ink-hard);
-  background: var(--concrete);
+  background: rgba(217, 217, 215, 0.92);
 }
 
 .kpi-block {

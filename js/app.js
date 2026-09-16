@@ -3,6 +3,20 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. Initialize Fullscreen Kinetic Brutalist Wallpaper
+  const liveWallpaper = new LiveBrutalistWallpaper('bgLiveWallpaper');
+
+  // Wallpaper Toggle Button
+  const wallpaperBtn = document.getElementById('wallpaperToggleBtn');
+  if (wallpaperBtn) {
+    wallpaperBtn.addEventListener('click', () => {
+      const active = liveWallpaper.toggle();
+      wallpaperBtn.textContent = active ? 'WALLPAPER: [ACTIVE]' : 'WALLPAPER: [PAUSED]';
+      wallpaperBtn.style.color = active ? 'var(--signal-accent)' : 'var(--ink-soft)';
+      if (window.brutalAudio) window.brutalAudio.click();
+    });
+  }
+
   // 1. Initialize Canvas Circuit (FlowMatrix)
   const flowMatrix = new FlowMatrix('flowMatrixCanvas');
 

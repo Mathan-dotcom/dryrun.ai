@@ -72,10 +72,21 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--concrete);
+  background-color: transparent;
   color: var(--ink-hard);
   position: relative;
   overflow-x: hidden;
+}
+
+#bgLiveWallpaper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10;
+  pointer-events: none;
+  display: block;
 }
 
 /* Selection */
