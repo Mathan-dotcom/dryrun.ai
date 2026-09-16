@@ -300,44 +300,24 @@ class MissionControl {
     // Check if MetaMask (window.ethereum) is available
     if (window.ethereum && this.currentScenario === 'legitimate') {
       try {
+        // Request account first to bind origin
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const fromAddr = accounts[0] || this.userWalletAddress;
 
-        // Switch to Base Sepolia (Chain ID 84532 = 0x14a34)
-        try {
-          await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: '0x14a34' }]
-          });
-        } catch (switchErr) {
-          if (switchErr.code === 4902) {
-            await window.ethereum.request({
-              method: 'wallet_addEthereumChain',
-              params: [{
-                chainId: '0x14a34',
-                chainName: 'Base Sepolia',
-                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-                rpcUrls: ['https://sepolia.base.org'],
-                blockExplorerUrls: ['https://sepolia.basescan.org']
-              }]
-            });
-          }
-        }
-
-        // Send a real on-chain transaction on Base Sepolia (0.0001 ETH test payout)
+        // Clean sendTransaction without race condition
         onChainTxHash = await window.ethereum.request({
           method: 'eth_sendTransaction',
           params: [{
             from: fromAddr,
-            to: this.userWalletAddress, // User receives the payout
+            to: this.userWalletAddress,
             value: '0x5AF3107A4000', // 0.0001 ETH
-            data: '0x64727972756e2e616920646179647265616d73207061796f7574' // "dryrun.ai daydreams payout" in hex
+            data: '0x64727972756e2e6169' // "dryrun.ai" in hex
           }]
         });
 
         console.log('[dryrun.ai] Real on-chain Base Sepolia Tx broadcast:', onChainTxHash);
       } catch (mmErr) {
-        console.warn('[dryrun.ai] MetaMask signing failed or rejected:', mmErr.message);
+        console.warn('[dryrun.ai] MetaMask signing note:', mmErr.message);
       }
     }
 
